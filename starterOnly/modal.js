@@ -21,6 +21,8 @@ const birthdate = document.getElementById("birthdate");
 const numberOfEntries = document.getElementById("quantity");
 const allFields = document.getElementsByTagName("input");
 const form = document.getElementsByTagName("form")[0];
+const validationAlert = document.getElementsByClassName("validation")[0];
+const validationBtn = document.getElementsByClassName("btn-validation")[0];
 
 // Error messages
 const noFirstName = "Veuillez renseigner votre prénom.";
@@ -39,14 +41,25 @@ const noAgreement = "Veuillez accepter les conditions d'utilisation.";
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-closeBtn.addEventListener("click", () => closeModal());
+closeBtn.addEventListener("click", () => {
+  closeModal();
+  resetValidationAlert();
+});
+
+// same on validation screen
+validationBtn.addEventListener("click", () => {
+  closeModal();
+  resetValidationAlert();
+});
 
 // validate form event
 submitBtn.addEventListener("click", (submission) => {
   clearErrorMessages();
-  if (!validateInput()) {
+  submission.preventDefault();
+  if (validateInput()) {
+    displayValidationAlert();
+  } else {
     addErrorMessage();
-    submission.preventDefault();
   }
 });
 
@@ -124,8 +137,18 @@ function validateInput() {
       input.classList.remove("is-invalid");
     }
   }
-  // if (!cityIsChecked) {
-  //   valid = false;
-  // }
+
   return valid;
+}
+
+// display validation message
+function displayValidationAlert() {
+  form.classList.add("invisible");
+  validationAlert.classList.remove("invisible");
+}
+
+// displays form for next use
+function resetValidationAlert() {
+  form.classList.remove("invisible");
+  validationAlert.classList.add("invisible");
 }

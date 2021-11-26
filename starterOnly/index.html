@@ -53,11 +53,14 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
+            <div class="invisible validation">
+              <p>Thank you for submitting your registration details!</p>
+              <button class="btn-validation button">Close</button>
+            </div>
             <form
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate();"
             >
               <div class="formData" id="first-name-section">
                 <label for="first-name">Prénom</label>

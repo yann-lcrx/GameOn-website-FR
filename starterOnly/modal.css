@@ -517,6 +517,15 @@ footer {
   }
 }
 
+.is-invalid {
+  border: 2px solid #fe244f;
+}
+
+.err-message {
+  color: #fe244f;
+  font-size: 0.8rem;
+}
+
 @keyframes modalopen {
   from {
     opacity: 0;

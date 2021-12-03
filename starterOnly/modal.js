@@ -73,20 +73,6 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// check "city" input completion
-function cityIsChecked() {
-  for (
-    let i = 1;
-    i <= document.querySelectorAll(".checkbox-label").length;
-    i++
-  ) {
-    if (document.getElementById(`location${i}`).checked) {
-      return true;
-    }
-  }
-  return false;
-}
-
 // add error message
 function addErrorMessage() {
   if (!firstName.value) {
@@ -101,21 +87,21 @@ function addErrorMessage() {
   if (lastName.value.length === 1) {
     lastName.nextElementSibling.innerText = shortLastName;
   }
-  if (!email.reportValidity() && !email.value) {
+  if (!email.checkValidity() && !email.value) {
     email.nextElementSibling.innerText = noEmail;
-  } else if (!email.reportValidity()) {
+  } else if (!email.checkValidity()) {
     email.nextElementSibling.innerText = invalidEmail;
   }
-  if (!birthdate.reportValidity()) {
+  if (!birthdate.checkValidity()) {
     birthdate.nextElementSibling.innerText = invalidBirthdate;
   }
-  if (!numberOfEntries.reportValidity()) {
+  if (!numberOfEntries.checkValidity()) {
     numberOfEntries.nextElementSibling.innerText = invalidEntries;
   }
-  if (!termsOfUse.reportValidity()) {
+  if (!termsOfUse.checkValidity()) {
     document.getElementsByClassName("no-agreement")[0].innerText = noAgreement;
   }
-  if (!document.getElementsByName("location")[0].reportValidity()) {
+  if (!document.getElementsByName("location")[0].checkValidity()) {
     document.getElementsByClassName("no-city")[0].innerText = noCity;
   }
 }
@@ -130,7 +116,7 @@ function clearErrorMessages() {
 function validateInput() {
   let valid = true;
   for (let input of allFields) {
-    if (!input.reportValidity()) {
+    if (!input.checkValidity()) {
       input.classList.add("is-invalid");
       valid = false;
     } else {

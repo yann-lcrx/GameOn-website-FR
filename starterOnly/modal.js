@@ -36,6 +36,7 @@ const invalidEntries =
   "Veuillez renseigner un nombre de participations valide.";
 const noCity = "Veuillez sélectionner une ville.";
 const noAgreement = "Veuillez accepter les conditions d'utilisation.";
+const illegalWhiteSpace = "Ce champ ne peut pas contenir d'espaces."
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -54,6 +55,7 @@ validationBtn.addEventListener("click", () => {
 
 // validate form event
 submitBtn.addEventListener("click", (submission) => {
+  email.value = email.value.trim();
   clearErrorMessages();
   submission.preventDefault();
   if (validateInput()) {
@@ -73,13 +75,23 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
+function hasWhiteSpace(inputValue) {
+  return inputValue.indexOf(' ') >= 0;
+}
+
 // add error message
 function addErrorMessage() {
+  if (hasWhiteSpace(firstName.value)) {
+    firstName.nextElementSibling.innerText = illegalWhiteSpace;
+  }
   if (!firstName.value) {
     firstName.nextElementSibling.innerText = noFirstName;
   }
   if (firstName.value.length === 1) {
     firstName.nextElementSibling.innerText = shortFirstName;
+  }
+  if (hasWhiteSpace(lastName.value)) {
+    lastName.nextElementSibling.innerText = illegalWhiteSpace;
   }
   if (!lastName.value) {
     lastName.nextElementSibling.innerText = noLastName;
@@ -106,6 +118,7 @@ function addErrorMessage() {
   }
 }
 
+//clear error messages
 function clearErrorMessages() {
   for (let errMessage of document.getElementsByClassName("err-message")) {
     errMessage.innerText = "";

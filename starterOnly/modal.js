@@ -36,7 +36,7 @@ const invalidEntries =
   "Veuillez renseigner un nombre de participations valide.";
 const noCity = "Veuillez sélectionner une ville.";
 const noAgreement = "Veuillez accepter les conditions d'utilisation.";
-const illegalWhiteSpace = "Ce champ ne peut pas contenir d'espaces."
+const illegalWhiteSpace = "Ce champ ne peut pas contenir d'espaces.";
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -53,12 +53,22 @@ validationBtn.addEventListener("click", () => {
   resetValidationAlert();
 });
 
+// clear input fields
+function clearInputFields() {
+  for (let input of allFields) {
+    if (input.type != "submit") {
+      input.value = "";
+    }
+  }
+}
+
 // validate form event
 submitBtn.addEventListener("click", (submission) => {
   email.value = email.value.trim();
   clearErrorMessages();
   submission.preventDefault();
   if (validateInput()) {
+    clearInputFields();
     displayValidationAlert();
   } else {
     addErrorMessage();
@@ -76,7 +86,7 @@ function closeModal() {
 }
 
 function hasWhiteSpace(inputValue) {
-  return inputValue.indexOf(' ') >= 0;
+  return inputValue.indexOf(" ") >= 0;
 }
 
 // add error message
